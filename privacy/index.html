@@ -14,7 +14,7 @@
         <a href="../support/">Help &amp; support</a>
       </nav>
       <h1>Privacy Policy</h1>
-      <p class="lede">Effective date: September 1, 2026</p>
+      <p class="lede">Effective date: October 8, 2026</p>
 
       <h2>Who controls your data</h2>
       <p>
@@ -37,7 +37,12 @@
         date and time, notes, payment labels, capture metadata, and the source
         text you choose to import. It also stores preferences such as home
         currency, language, onboarding state, and merchant-category memory.
-        These records are kept in Pizat's encrypted local database.
+        The main ledger uses an encrypted local database. Pending platform
+        captures can also be held in bounded, app-private queues outside the
+        ledger's encryption. Items are removed as capture processing
+        acknowledges them or local data is reset; older items can also be
+        removed when a queue reaches its capacity. Pending captures have no
+        fixed time-based expiry.
       </p>
 
       <h2>Capture permissions</h2>
@@ -66,22 +71,52 @@
         receives ordinary network information such as your IP address.
       </p>
 
-      <h2>Optional private-cloud backup</h2>
+      <h2>Sharing a merchant summary</h2>
       <p>
-        If you create a backup, Pizat compresses and encrypts it on your device
-        with AES-256-GCM using a key derived from your passphrase. The encrypted
-        artifact is stored in your private CloudKit database on iPhone or your
-        Google Drive app-data storage on Android. Pizat cannot recover your
-        passphrase or read the encrypted backup. Apple or Google processes the
-        account authorization, storage request, and ordinary network metadata
-        under its own terms.
+        You can preview a merchant summary and choose to share it through your
+        device's sharing options. The summary contains the merchant name,
+        reporting period, visit count, spending total and average, and counts
+        of visits included in or excluded from the totals because of currency
+        conversion. It excludes individual transactions, raw capture text,
+        notes and internal identifiers.
+      </p>
+      <p>
+        After you confirm, Pizat passes the summary as readable text to the
+        operating system. The recipient app you choose controls its further
+        handling. Deleting data in Pizat does not delete copies you have shared.
       </p>
 
-      <h2>Advertising, analytics, and tracking</h2>
+      <h2>Optional private-cloud backup</h2>
       <p>
-        Pizat contains no advertising SDK, behavioral analytics, tracking,
-        data broker, or Pizat-operated user account in this Beta. Pizat does
-        not sell your personal information.
+        If you create a backup, Pizat compresses and encrypts its contents on
+        your device with AES-256-GCM using a key derived from your passphrase.
+        It stores the backup in your private CloudKit database on iPhone or
+        Google Drive app-data storage on Android. The app decrypts the contents
+        on your device when you provide the correct passphrase. Pizat has no
+        passphrase-recovery feature.
+      </p>
+      <p>
+        The backup also contains metadata outside this passphrase encryption:
+        backup identifiers and dates, app, database-schema and backup-format
+        versions, platform, encrypted-file size and checksum, and encryption
+        parameters. This metadata is accessible to the storage provider. Apple
+        or Google processes account authorization, storage requests and
+        ordinary network information under its own terms.
+      </p>
+      <p>
+        On Android, after you grant Google Drive access, opening Settings can
+        check that access and retrieve the latest encrypted backup to read its
+        metadata without showing another consent prompt. These requests can
+        occur even when you are not creating a backup. Pizat requests access to
+        its Drive app-data storage; it does not request Google profile or
+        email scopes.
+      </p>
+
+      <h2>Advertising and Pizat accounts</h2>
+      <p>
+        Pizat includes no advertising features or Pizat-operated user account
+        in this Beta. Optional cloud backup uses your Apple or Google account
+        as described above.
       </p>
 
       <h2>Retention and deletion</h2>
@@ -98,8 +133,9 @@
 
       <h2>Security and your choices</h2>
       <p>
-        Pizat uses an encrypted local database and encrypts backups before
-        upload. Keep your device protected and store your backup passphrase
+        Pizat uses an encrypted local ledger and encrypts backup contents
+        before upload; backup metadata remains outside the passphrase
+        encryption. Keep your device protected and store your backup passphrase
         safely; no one can restore the backup without it. You choose whether to
         enable platform capture and whether to create or delete a cloud backup.
       </p>
